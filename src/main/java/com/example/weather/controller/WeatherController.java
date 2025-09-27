@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.service.WeatherService;
+import com.example.weather.model.ForecastResponse;
 import com.example.weather.model.WeatherResponse;
 
 @Controller
@@ -21,13 +22,12 @@ public class WeatherController {
     
     @GetMapping("/")
     public String index() {
-    	System.out.println("index called()");
     	return "index";
     }
 
     @GetMapping("/current")
     public String getCurrentWeather(@RequestParam String city, Model model) {
-    	WeatherResponse response = weatherService.getCurrentWeather(city);
+    	WeatherResponse response = weatherService.getCurrent(city);
         model.addAttribute("weather", response);
         if (response != null && response.getSys() != null) {
         	long sunriseSeconds = response.getSys().getSunrise();
@@ -40,7 +40,8 @@ public class WeatherController {
 
     @GetMapping("/forecast")
     public String getWeatherForecast(@RequestParam String city, Model model) {
-    	model.addAttribute("forecast", weatherService.getForecast(city));
+    	ForecastResponse response= weatherService.getForecast(city);
+    	model.addAttribute("forecast", response.getList());
     	return "forecast";
     }
 

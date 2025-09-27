@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import com.example.weather.controller.WeatherController;
+import com.example.weather.model.ForecastResponse;
 import com.example.weather.model.WeatherResponse;
 
 @Service
@@ -25,23 +26,27 @@ public class WeatherService {
         this.restTemplate = restTemplate;
     }
 
-    public WeatherResponse getCurrentWeather(String city) {
+    public WeatherResponse getCurrent(String city) {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .queryParam("q", city)
                 .queryParam("appid", apiKey)
                 .queryParam("units", "metric")
                 .toUriString();
-
+        
+        System.out.println(url);
+        
         return restTemplate.getForObject(url, WeatherResponse.class);
     }
 
-    public String getForecast(String city) {
+    public ForecastResponse getForecast(String city) {
         String url = UriComponentsBuilder.fromHttpUrl(forecastUrl)
                 .queryParam("q", city)
                 .queryParam("appid", apiKey)
                 .queryParam("units", "metric")
                 .toUriString();
 
-        return restTemplate.getForObject(url, String.class);
+        System.out.println(url);
+
+        return restTemplate.getForObject(url, ForecastResponse.class);
     }
 }
