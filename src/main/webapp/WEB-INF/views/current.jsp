@@ -45,6 +45,9 @@
         <p>No weather data available.</p>
     </c:if>
 
-    <p><a href="/weather?city=Guntur">Reload Guntur</a></p>
+    <form action="/forecast" method="get">
+    	<input type="hidden" name = "city" value = "${weather.name}">
+    	<button type="submit">Get Forecast</button>
+    </form>
 </body>
 </html>

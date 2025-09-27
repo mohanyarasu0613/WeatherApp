@@ -8,14 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.service.WeatherService;
 import com.example.weather.model.WeatherResponse;
-import com.example.weather.service.WeatherService;
 
 @Controller
 public class WeatherController {
 	
 	@Autowired
     private WeatherService weatherService;
+	
+	;
     
     @GetMapping("/")
     public String index() {
@@ -37,8 +39,9 @@ public class WeatherController {
     }
 
     @GetMapping("/forecast")
-    public String getWeatherForecast(@RequestParam String city) {
-        return weatherService.getForecast(city);
+    public String getWeatherForecast(@RequestParam String city, Model model) {
+    	model.addAttribute("forecast", weatherService.getForecast(city));
+    	return "forecast";
     }
 
 }
