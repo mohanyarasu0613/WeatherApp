@@ -123,9 +123,10 @@
     <div class="weather-card">
         <h1>Weather Application</h1>
 
-        <form action="/current" method="get">
+        <form action="/weather" method="get">
             <input type="text" id="city" name="city" placeholder="Enter city..." />
-            <button type="submit">Get Weather</button>
+            <button type="submit" name="action" value="current">Get Weather</button>
+            <button type="submit" name="action" value="forecast">Get Forecast</button>
         </form>
     </div>
 </body>

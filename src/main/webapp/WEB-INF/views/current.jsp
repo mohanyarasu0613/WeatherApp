@@ -17,7 +17,7 @@
         }
 
         h1 {
-            margin-top: 30px;
+            margin-top: 30px; 	
             font-size: 32px;
             color: #61dafb;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
@@ -122,10 +122,9 @@
             <div class="weather-detail"><strong>Sunrise:</strong> <fmt:formatDate value="${sunriseDate}" pattern="hh:mm a" /></div>
             <div class="weather-detail"><strong>Sunset:</strong> <fmt:formatDate value="${sunsetDate}" pattern="hh:mm a" /></div>
             <div class="weather-detail"><small>Last update timestamp: <c:out value="${weather.dt}" /></small></div>
-
-            <form action="/forecast" method="get">
-                <input type="hidden" name="city" value="${weather.name}">
-                <button type="submit">Get Forecast</button>
+            
+            <form action="/">
+            	<button type="submit">Back to Home</button>
             </form>
         </div>
     </c:if>

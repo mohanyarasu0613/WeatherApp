@@ -24,25 +24,47 @@ public class WeatherController {
     public String index() {
     	return "index";
     }
-
-    @GetMapping("/current")
-    public String getCurrentWeather(@RequestParam String city, Model model) {
-    	WeatherResponse response = weatherService.getCurrent(city);
-        model.addAttribute("weather", response);
-        if (response != null && response.getSys() != null) {
-        	long sunriseSeconds = response.getSys().getSunrise();
-        	long sunsetSeconds = response.getSys().getSunset();
-        	model.addAttribute("sunriseDate", new Date(sunriseSeconds * 1000));
-        	model.addAttribute("sunsetDate", new Date(sunsetSeconds * 1000));
-        }
-        return "current";
+    
+    @GetMapping("/weather")
+    public String getWeather(@RequestParam String city,
+    						@RequestParam String action, Model model) {
+    	if("current".equalsIgnoreCase(action)) {
+    		WeatherResponse response = weatherService.getCurrent(city);
+          model.addAttribute("weather", response);
+          if (response != null && response.getSys() != null) {
+          	long sunriseSeconds = response.getSys().getSunrise();
+          	long sunsetSeconds = response.getSys().getSunset();
+          	model.addAttribute("sunriseDate", new Date(sunriseSeconds * 1000));
+          	model.addAttribute("sunsetDate", new Date(sunsetSeconds * 1000));
+          }
+          return "current";
+    	}
+    	
+    	else {
+    		ForecastResponse response= weatherService.getForecast(city);
+        	model.addAttribute("forecast", response.getList());
+        	return "forecast";
+    	}
     }
 
-    @GetMapping("/forecast")
-    public String getWeatherForecast(@RequestParam String city, Model model) {
-    	ForecastResponse response= weatherService.getForecast(city);
-    	model.addAttribute("forecast", response.getList());
-    	return "forecast";
-    }
+//    @GetMapping("/current")
+//    public String getCurrentWeather(@RequestParam String city, Model model) {
+//    	WeatherResponse response = weatherService.getCurrent(city);
+//        model.addAttribute("weather", response);
+//        if (response != null && response.getSys() != null) {
+//        	long sunriseSeconds = response.getSys().getSunrise();
+//        	long sunsetSeconds = response.getSys().getSunset();
+//        	model.addAttribute("sunriseDate", new Date(sunriseSeconds * 1000));
+//        	model.addAttribute("sunsetDate", new Date(sunsetSeconds * 1000));
+//        }
+//        return "current";
+//    }
+//
+//    @GetMapping("/forecast")
+//    public String getWeatherForecast(@RequestParam String city, Model model) {
+//    	ForecastResponse response= weatherService.getForecast(city);
+//    	model.addAttribute("forecast", response.getList());
+//    	return "forecast";
+//    }
 
 }
