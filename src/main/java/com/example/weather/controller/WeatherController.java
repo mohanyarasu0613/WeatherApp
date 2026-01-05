@@ -47,24 +47,4 @@ public class WeatherController {
     	}
     }
 
-//    @GetMapping("/current")
-//    public String getCurrentWeather(@RequestParam String city, Model model) {
-//    	WeatherResponse response = weatherService.getCurrent(city);
-//        model.addAttribute("weather", response);
-//        if (response != null && response.getSys() != null) {
-//        	long sunriseSeconds = response.getSys().getSunrise();
-//        	long sunsetSeconds = response.getSys().getSunset();
-//        	model.addAttribute("sunriseDate", new Date(sunriseSeconds * 1000));
-//        	model.addAttribute("sunsetDate", new Date(sunsetSeconds * 1000));
-//        }
-//        return "current";
-//    }
-//
-//    @GetMapping("/forecast")
-//    public String getWeatherForecast(@RequestParam String city, Model model) {
-//    	ForecastResponse response= weatherService.getForecast(city);
-//    	model.addAttribute("forecast", response.getList());
-//    	return "forecast";
-//    }
-
 }
